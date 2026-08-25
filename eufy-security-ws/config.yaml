@@ -25,6 +25,8 @@ options:
   ipv4first: false
   event_duration: 10
   stations: []
+  github_url: null
+  github_branch: null
 schema:
   username: email
   password: password
@@ -39,4 +41,6 @@ schema:
   stations:
     - serial_number: str
       ip_address: match(^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$)
+  github_url: str?
+  github_branch: str?
 image: bropat/hassio-eufy-security-ws-{arch}
