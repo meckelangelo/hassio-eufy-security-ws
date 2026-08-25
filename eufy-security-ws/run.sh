@@ -10,19 +10,6 @@ POLLING_INTERVAL_MINUTES="$(bashio::config 'polling_interval')"
 ACCEPT_INVITATIONS="$(bashio::config 'accept_invitations')"
 TRUSTED_DEVICE_NAME="$(bashio::config 'trusted_device_name')"
 
-EUFY_CLIENT_GIT_URL=""
-if bashio::config.has_value 'github_url'; then
-    EUFY_CLIENT_GIT_URL="$(bashio::config 'github_url')"
-fi
-
-EUFY_CLIENT_GIT_BRANCH=""
-if bashio::config.has_value 'github_branch'; then
-    EUFY_CLIENT_GIT_BRANCH="$(bashio::config 'github_branch')"
-fi
-
-echo "CUSTOM CLIENT URL: '${EUFY_CLIENT_GIT_URL}'"
-echo "CUSTOM CLIENT BRANCH: '${EUFY_CLIENT_GIT_BRANCH}'"
-
 COUNTRY_JQ=""
 if bashio::config.has_value 'country'; then
     COUNTRY_JQ="country: \$country,"
@@ -105,43 +92,6 @@ JSON_STRING="$( jq -n \
       $STATION_IP_ADDRESSES_JQ
     }"
   )"
-
-if [ -n "${EUFY_CLIENT_GIT_URL}" ] && [ -n "${EUFY_CLIENT_GIT_BRANCH}" ]; then
-    echo "Installing custom Eufy Client ${EUFY_CLIENT_GIT_URL} branch ${EUFY_CLIENT_GIT_BRANCH}"
-
-    export npm_config_cache=/tmp/npm-cache
-    mkdir -p /tmp/npm-cache
-
-    cd /usr/src/app
-
-    rm -rf eufy-security-client
-    rm -f eufy-security-client.tgz
-
-    echo "=== CUSTOM CLIENT PERMISSION DEBUG ==="
-    id
-    whoami
-    echo "HOME=${HOME}"
-    ls -ld /usr/src/app
-    ls -ld /usr/src/app/node_modules
-
-    git clone -b "$EUFY_CLIENT_GIT_BRANCH" "$EUFY_CLIENT_GIT_URL" eufy-security-client
-
-    cd eufy-security-client
-
-    ls -ld /usr/src/app/eufy-security-client
-    touch /usr/src/app/eufy-security-client/test-write 2>&1 || true
-    rm -f /usr/src/app/eufy-security-client/test-write 2>/dev/null || true
-    
-    npm ci
-    npm run build -y
-    npm pack
-    mv eufy-security-client*.tgz ../eufy-security-client.tgz
-
-    cd /usr/src/app
-
-    npm pkg set overrides.eufy-security-client=file:eufy-security-client.tgz
-    npm install --force
-fi
 
 if bashio::config.has_value 'username' && bashio::config.has_value 'password'; then
     echo "$JSON_STRING" > $CONFIG_PATH
