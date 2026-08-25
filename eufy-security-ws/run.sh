@@ -1,5 +1,7 @@
 #!/usr/bin/with-contenv bashio
 
+echo "=== T8426 CUSTOM IMAGE v8 ==="
+
 CONFIG_PATH=/data/eufy-security-ws-config.json
 
 USERNAME="$(bashio::config 'username')"
