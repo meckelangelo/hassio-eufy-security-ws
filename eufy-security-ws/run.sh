@@ -117,9 +117,21 @@ if [ -n "${EUFY_CLIENT_GIT_URL}" ] && [ -n "${EUFY_CLIENT_GIT_BRANCH}" ]; then
     rm -rf eufy-security-client
     rm -f eufy-security-client.tgz
 
+    echo "=== CUSTOM CLIENT PERMISSION DEBUG ==="
+    id
+    whoami
+    echo "HOME=${HOME}"
+    ls -ld /usr/src/app
+    ls -ld /usr/src/app/node_modules
+
     git clone -b "$EUFY_CLIENT_GIT_BRANCH" "$EUFY_CLIENT_GIT_URL" eufy-security-client
 
     cd eufy-security-client
+
+    ls -ld /usr/src/app/eufy-security-client
+    touch /usr/src/app/eufy-security-client/test-write 2>&1 || true
+    rm -f /usr/src/app/eufy-security-client/test-write 2>/dev/null || true
+    
     npm ci
     npm run build -y
     npm pack
