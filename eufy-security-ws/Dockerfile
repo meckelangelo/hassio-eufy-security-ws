@@ -10,6 +10,7 @@ RUN \
     # repository, so nodejs/npm install directly with no edge-repo workarounds.
     && apk add --no-cache \
         jq \
+        git \
         nodejs \
         npm \
     && node --version \
