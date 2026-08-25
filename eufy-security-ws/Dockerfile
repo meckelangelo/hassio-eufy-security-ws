@@ -33,6 +33,7 @@ RUN \
     && cd /usr/src/app \
     && npm install --force ./eufy-security-client.tgz \
     && npm ls eufy-security-client \
+    && node -e "console.log(require('/usr/src/app/node_modules/eufy-security-client/package.json').version)" \
     && rm -rf /tmp/eufy-security-client
 
 COPY run.sh /
