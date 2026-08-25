@@ -109,6 +109,9 @@ JSON_STRING="$( jq -n \
 if [ -n "${EUFY_CLIENT_GIT_URL}" ] && [ -n "${EUFY_CLIENT_GIT_BRANCH}" ]; then
     echo "Installing custom Eufy Client ${EUFY_CLIENT_GIT_URL} branch ${EUFY_CLIENT_GIT_BRANCH}"
 
+    export npm_config_cache=/tmp/npm-cache
+    mkdir -p /tmp/npm-cache
+
     cd /usr/src/app
 
     rm -rf eufy-security-client
