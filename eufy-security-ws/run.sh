@@ -97,6 +97,16 @@ JSON_STRING="$( jq -n \
 
 if bashio::config.has_value 'username' && bashio::config.has_value 'password'; then
     echo "$JSON_STRING" > $CONFIG_PATH
+
+    /usr/bin/node -e "
+    const p = require.resolve(
+      'eufy-security-client/package.json',
+      { paths: ['/usr/src/app/node_modules/eufy-security-ws'] }
+    );
+    console.log('Resolved:', p);
+    console.log('Version:', require(p).version);
+    "
+    
     # No --security-revert=CVE-2023-46809: Node 24 dropped that revert token and
     # aborts on startup if it's passed. eufy-security-ws@3.0.1 instead defaults
     # config.enableEmbeddedPKCS1Support=true, so eufy-security-client uses its
