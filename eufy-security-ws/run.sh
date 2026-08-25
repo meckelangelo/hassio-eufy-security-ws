@@ -1,6 +1,6 @@
 #!/usr/bin/with-contenv bashio
 
-echo "=== T8426 CUSTOM IMAGE v8 ==="
+echo "=== T8426 V2 CLEAN RUN.SH ==="
 
 CONFIG_PATH=/data/eufy-security-ws-config.json
 
