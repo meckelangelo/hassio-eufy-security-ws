@@ -20,6 +20,9 @@ if bashio::config.has_value 'github_branch'; then
     EUFY_CLIENT_GIT_BRANCH="$(bashio::config 'github_branch')"
 fi
 
+echo "CUSTOM CLIENT URL: '${EUFY_CLIENT_GIT_URL}'"
+echo "CUSTOM CLIENT BRANCH: '${EUFY_CLIENT_GIT_BRANCH}'"
+
 COUNTRY_JQ=""
 if bashio::config.has_value 'country'; then
     COUNTRY_JQ="country: \$country,"
