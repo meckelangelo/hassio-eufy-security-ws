@@ -5,6 +5,8 @@ ARG EUFY_SECURITY_WS_VERSION
 
 WORKDIR /usr/src/app
 
+RUN echo "T8426 BUILD 2026-08-25-v8"
+
 RUN \
     set -x \
     && apk add --no-cache \
