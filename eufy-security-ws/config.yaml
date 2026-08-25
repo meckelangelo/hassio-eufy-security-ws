@@ -1,6 +1,6 @@
-name: eufy-security-ws-t8426-fix-6
+name: eufy-security-ws-t8426-fix-7
 description: Allows you to control Eufy security devices over websocket by connecting to the Eufy cloud servers and local/remote stations
-version: 3.1.0-t8426.6
+version: 3.1.0-t8426.7
 slug: "eufy_security_ws_t8426"
 url: https://github.com/bropat/hassio-eufy-security-ws
 init: false
