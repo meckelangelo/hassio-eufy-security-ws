@@ -34,8 +34,11 @@ RUN \
     && mv eufy-security-client-*.tgz /usr/src/app/eufy-security-client.tgz \
     && cd /usr/src/app \
     && npm install --force ./eufy-security-client.tgz \
-    && npm ls eufy-security-client \
-    && node -e "console.log(require('/usr/src/app/node_modules/eufy-security-client/package.json').version)" \
+    && echo "=== BEFORE REMOVING NESTED CLIENT ===" \
+    && node -e "const p=require.resolve('eufy-security-client/package.json',{paths:['/usr/src/app/node_modules/eufy-security-ws']}); console.log('Resolved:',p); console.log('Version:',require(p).version)" \
+    && rm -rf /usr/src/app/node_modules/eufy-security-ws/node_modules/eufy-security-client \
+    && echo "=== AFTER REMOVING NESTED CLIENT ===" \
+    && node -e "const p=require.resolve('eufy-security-client/package.json',{paths:['/usr/src/app/node_modules/eufy-security-ws']}); console.log('Resolved:',p); console.log('Version:',require(p).version)" \
     && rm -rf /tmp/eufy-security-client
 
 COPY run.sh /
