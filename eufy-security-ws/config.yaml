@@ -1,4 +1,4 @@
-name: eufy-security-ws
+name: eufy-security-ws-t8426-fix
 description: Allows you to control Eufy security devices over websocket by connecting to the Eufy cloud servers and local/remote stations
 version: 3.1.0
 slug: "eufy_security_ws"
